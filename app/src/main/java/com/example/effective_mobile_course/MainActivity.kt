@@ -42,6 +42,7 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun mainScreen() {
+    RetrofitHttpClient().GetHero()
     Surface(color = MaterialTheme.colors.error){
         Column {
             Image(
