@@ -1,33 +1,37 @@
 package com.example.effective_mobile_course
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
+import com.example.effective_mobile_course.modules.Result
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.math.BigInteger
 import java.security.MessageDigest
 
 
-class RetrofitHttpClient:IHttpClient {
-    val PRIVATE_KEY_MARVEL="fabe39ab80049ea50c65e54717ff8d8441d35022"
-    val PUBLIC_KEY_MARVEL="07b94bf303de475b49b2c537705e2ef3"
-    val MarvelApiUrl = "http://gateway.marvel.com/"
-    override fun GetHero(): String {
-        val hash = Hashing.md5("${1}${PRIVATE_KEY_MARVEL}${PUBLIC_KEY_MARVEL}")
-        val retrofit = Retrofit.Builder()
-            .baseUrl(MarvelApiUrl)
-            .client(OkHttpClient().newBuilder().build())
-            .addConverterFactory(MoshiConverterFactory.create())
-            .build()
-        val marvelAPI = retrofit.create(IMarvelAPI::class.java)
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = marvelAPI.getHeroes("1",PUBLIC_KEY_MARVEL,hash)
+class RetrofitHttpClient {
+
+    private companion object{
+        var httpLoggingInterceptor: HttpLoggingInterceptor? = null
+        var retrofit :Retrofit? = null
+        var httpClient: OkHttpClient? = null
+    }
+
+    val MarvelApiUrl = "http://gateway.marvel.com"
+    fun getRetrofit(): Retrofit {
+        if (retrofit == null){
+            httpLoggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            httpClient = OkHttpClient.Builder()
+                .addInterceptor(httpLoggingInterceptor!!)
+                .build()
+            retrofit = Retrofit.Builder()
+                .baseUrl(MarvelApiUrl)
+                .client(httpClient)
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
         }
-        return ""
+
+        return retrofit!!
     }
 }
 

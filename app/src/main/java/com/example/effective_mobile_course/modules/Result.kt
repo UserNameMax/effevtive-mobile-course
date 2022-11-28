@@ -1,4 +1,4 @@
-package com.example.effective_mobile_course
+package com.example.effective_mobile_course.modules
 
 data class Result(
     val comics: Comics,
