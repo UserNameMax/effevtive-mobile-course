@@ -1,6 +1,9 @@
 package com.example.effective_mobile_course
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.LaunchedEffect
+import com.example.effective_mobile_course.modules.Hero
 import com.example.effective_mobile_course.modules.Result
 import com.example.effective_mobile_course.modules.ServerAnswer
 import retrofit2.Retrofit
@@ -20,10 +23,13 @@ class InternetHeroesGetter constructor(retrofit:Retrofit):IHeroesGetter {
         retrofit_=retrofit
         hash = Hashing.md5("${1}${PRIVATE_KEY_MARVEL}${PUBLIC_KEY_MARVEL}")
     }
-    override suspend fun getHeroes(): List<Result>? {
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun getHeroes(): List<Hero>? {
         if (marvelAPI == null)
             marvelAPI = retrofit_.create(IMarvelAPI::class.java)
         val response: ServerAnswer? = marvelAPI?.getHeroes("1",PUBLIC_KEY_MARVEL,hash)
-        return response?.data?.results
+
+        val heroes= response?.data?.results?.map { ValueToHero(it) }
+        return heroes
     }
 }

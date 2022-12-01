@@ -1,5 +1,7 @@
 package com.example.effective_mobile_course.modules
 
+import android.graphics.Color
+
 data class Result(
     val comics: Comics,
     val description: String,
