@@ -19,30 +19,31 @@ import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
 @OptIn(ExperimentalSnapperApi::class)
 @Composable
 fun CardsList(heroesGetter: IHeroesGetter){
-    var heres by remember {
+    var heroes by remember {
         mutableStateOf(listOf<Result>())
     }
 
     LaunchedEffect(Unit) {
-        heres = heroesGetter.getHeroes()!!
+        heroes = heroesGetter.getHeroes()!!
     }
     val lazyListState: LazyListState = rememberLazyListState()
 
     LazyRow(
         contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(32.dp),
+        state = lazyListState,
         flingBehavior = rememberSnapperFlingBehavior(lazyListState),
         modifier = Modifier
             .fillMaxWidth()
             .animateContentSize(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        items(heres.size) {i->
-            if(heres.isEmpty()){
+        items(heroes.size) { i->
+            if(heroes.isEmpty()){
                 card()
             }
             else {
-                card(heres[i])
+                card(heroes[i])
             }
 
         }
