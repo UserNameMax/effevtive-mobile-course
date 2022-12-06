@@ -1,6 +1,7 @@
 package com.example.effective_mobile_course.views
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,7 +16,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.effective_mobile_course.R
 import com.example.effective_mobile_course.modules.Hero
-import com.example.effective_mobile_course.modules.Result
 
 
 @Composable
@@ -27,7 +27,7 @@ fun card(){
 }
 
 @Composable
-fun card(card: Hero){
+fun card(card: Hero, onNavigate: (Hero)->Unit){
     Box(
         Modifier
             .height((400).dp)
@@ -40,6 +40,7 @@ fun card(card: Hero){
             contentDescription = card.name,
             contentScale = ContentScale.FillHeight,
             modifier = Modifier.fillMaxSize()
+                .clickable(onClick = {onNavigate(card)})
         )
         Box(
             Modifier.align(Alignment.TopStart).fillMaxHeight()

@@ -27,7 +27,7 @@ class CardsList {
 
     @OptIn(ExperimentalSnapperApi::class)
     @Composable
-    fun getView(heroesGetter: IHeroesGetter, onChangeIndex: (Color)-> Unit){
+    fun getView(heroesGetter: IHeroesGetter, onChangeIndex: (Color)-> Unit, onNavigate: (Hero)->Unit){
         var heroes by remember {
             mutableStateOf(listOf<Hero>())
         }
@@ -63,7 +63,7 @@ class CardsList {
                     card()
                 }
                 else {
-                    card(heroes[i])
+                    card(heroes[i],onNavigate)
                 }
 
             }

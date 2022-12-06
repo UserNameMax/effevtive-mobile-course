@@ -48,8 +48,16 @@ android {
 
 dependencies {
 
+    def nav_version = "2.5.3"
+
+    implementation "androidx.navigation:navigation-compose:$nav_version"
+
 
     implementation "dev.chrisbanes.snapper:snapper:0.2.0"
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.4.+'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'androidx.navigation:navigation-runtime-ktx:2.4.1'
     // coil
     def coil_version = "2.2.2"
     implementation("io.coil-kt:coil-compose:$coil_version")
