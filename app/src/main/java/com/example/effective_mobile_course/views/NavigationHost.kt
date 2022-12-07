@@ -13,8 +13,6 @@ import com.example.effective_mobile_course.*
 import com.example.effective_mobile_course.modules.AppDatabase
 import com.example.effective_mobile_course.modules.Hero
 
-//InternetHeroesGetter(RetrofitHttpClient().getRetrofit())
-
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NavigationHost(applicationContext:Context){
@@ -30,6 +28,6 @@ fun NavigationHost(applicationContext:Context){
                 selectHero = it
             })
         }
-        composable("heroScreen"){ HeroScreen(selectHero) }
+        composable("heroScreen"){ HeroScreen(selectHero,{navController.popBackStack()}) }
     }
 }
