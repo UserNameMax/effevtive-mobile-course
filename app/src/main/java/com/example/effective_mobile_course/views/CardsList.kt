@@ -40,6 +40,7 @@ class CardsList {
         LaunchedEffect(Unit) {
             heroes = heroesGetter.getHeroes()!!
 
+
         }
         val lazyListState: LazyListState = rememberLazyListState()
         val layoutInfo: LazyListSnapperLayoutInfo = rememberLazyListSnapperLayoutInfo(lazyListState)
