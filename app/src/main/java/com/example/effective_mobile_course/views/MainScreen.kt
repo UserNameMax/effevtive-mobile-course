@@ -1,20 +1,21 @@
 package com.example.effective_mobile_course.views
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.effective_mobile_course.InternetHeroesGetter
-import com.example.effective_mobile_course.RetrofitHttpClient
+import com.example.effective_mobile_course.DbHeroesGetter
+import com.example.effective_mobile_course.IHeroesGetter
 import com.example.effective_mobile_course.modules.Hero
 
-
-@Preview(showBackground = true)
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun mainScreen(onNavigate:(Hero)->Unit) {
+fun mainScreen(heroesGetter: IHeroesGetter, onNavigate:(Hero)->Unit) {
+
     val list by remember {
         mutableStateOf(CardsList())
     }
@@ -27,7 +28,7 @@ fun mainScreen(onNavigate:(Hero)->Unit) {
         triangle(color = colorNumber)
         Column {
             header()
-            list.getView(InternetHeroesGetter(RetrofitHttpClient().getRetrofit()), {colorNumber=it}, onNavigate )
+            list.getView(heroesGetter, {colorNumber=it}, onNavigate )
         }
     }
 }

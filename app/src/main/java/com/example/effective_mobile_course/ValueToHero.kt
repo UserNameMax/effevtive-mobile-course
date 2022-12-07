@@ -11,9 +11,10 @@ import kotlin.random.nextULong
 @RequiresApi(Build.VERSION_CODES.O)
 fun ValueToHero(value:Result):Hero{
     return Hero(
+        id = value.id,
         name = value.name,
         imageURL = value.thumbnail.path+"."+value.thumbnail.extension,
         description = value.description,
-        color = Color(Random.nextLong(0xFFFFFFFF))
+        color = Random.nextLong(0xFFFFFFFF)
     )
 }

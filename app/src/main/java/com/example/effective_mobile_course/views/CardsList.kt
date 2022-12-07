@@ -1,6 +1,8 @@
 package com.example.effective_mobile_course.views
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.effective_mobile_course.IHeroesGetter
+import com.example.effective_mobile_course.InternetHeroesGetter
+import com.example.effective_mobile_course.dbClient
 import com.example.effective_mobile_course.modules.Hero
 import com.example.effective_mobile_course.modules.Result
 import com.example.effective_mobile_course.onSwipe
@@ -25,6 +29,7 @@ import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
 class CardsList {
     var index = mutableStateOf(0)
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @OptIn(ExperimentalSnapperApi::class)
     @Composable
     fun getView(heroesGetter: IHeroesGetter, onChangeIndex: (Color)-> Unit, onNavigate: (Hero)->Unit){
@@ -34,6 +39,7 @@ class CardsList {
 
         LaunchedEffect(Unit) {
             heroes = heroesGetter.getHeroes()!!
+
         }
         val lazyListState: LazyListState = rememberLazyListState()
         val layoutInfo: LazyListSnapperLayoutInfo = rememberLazyListSnapperLayoutInfo(lazyListState)
@@ -42,7 +48,7 @@ class CardsList {
            if (!lazyListState.isScrollInProgress) {
                 val snappedItem = layoutInfo.currentItem
                 if (snappedItem != null) {
-                    onChangeIndex(heroes[snappedItem.index].color)
+                    onChangeIndex(heroes[snappedItem.index].getColor())
                 }
             }
             Log.e("debug0",index.toString())

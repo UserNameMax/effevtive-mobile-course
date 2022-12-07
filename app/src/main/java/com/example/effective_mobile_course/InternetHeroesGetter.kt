@@ -6,6 +6,9 @@ import androidx.compose.runtime.LaunchedEffect
 import com.example.effective_mobile_course.modules.Hero
 import com.example.effective_mobile_course.modules.Result
 import com.example.effective_mobile_course.modules.ServerAnswer
+import com.example.effective_mobile_course.modules.UserDao
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import retrofit2.Retrofit
 
 class InternetHeroesGetter constructor(retrofit:Retrofit):IHeroesGetter {
