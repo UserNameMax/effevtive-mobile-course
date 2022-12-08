@@ -18,10 +18,12 @@ import com.example.effective_mobile_course.modules.Hero
 fun NavigationHost(applicationContext:Context){
     val navController = rememberNavController()
     var selectHero:Hero = Hero(-1,"Error","","", 0)
+    val dataViewModel = DataViewModel()
     dbClient().setApplicationContext(applicationContext)
     NavHost(navController = navController, startDestination = "mainScreen"){
         composable("mainScreen"){
             mainScreen(
+                dataViewModel = dataViewModel,
                 heroesGetter = CombainHeroGetter(),
                 onNavigate = {
                 navController.navigate("heroScreen")

@@ -9,52 +9,43 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
-import com.example.effective_mobile_course.IHeroesGetter
-import com.example.effective_mobile_course.InternetHeroesGetter
-import com.example.effective_mobile_course.dbClient
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.repeatOnLifecycle
+import com.example.effective_mobile_course.*
 import com.example.effective_mobile_course.modules.Hero
 import com.example.effective_mobile_course.modules.Result
-import com.example.effective_mobile_course.onSwipe
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 import dev.chrisbanes.snapper.LazyListSnapperLayoutInfo
 import dev.chrisbanes.snapper.rememberLazyListSnapperLayoutInfo
 import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 
-class CardsList {
-    var index = mutableStateOf(0)
-
-    @RequiresApi(Build.VERSION_CODES.O)
+@RequiresApi(Build.VERSION_CODES.O)
     @OptIn(ExperimentalSnapperApi::class)
     @Composable
-    fun getView(heroesGetter: IHeroesGetter, onChangeIndex: (Color)-> Unit, onNavigate: (Hero)->Unit){
-        var heroes by remember {
-            mutableStateOf(listOf<Hero>())
-        }
-
-        LaunchedEffect(Unit) {
-            heroes = heroesGetter.getHeroes()!!
-
-
-        }
+    fun getView(dataViewModel:DataViewModel, heroesGetter: IHeroesGetter, onChangeIndex: (Color)-> Unit, onNavigate: (Hero)->Unit){
         val lazyListState: LazyListState = rememberLazyListState()
         val layoutInfo: LazyListSnapperLayoutInfo = rememberLazyListSnapperLayoutInfo(lazyListState)
+        val heroes = rememberStateWithLifecycle(dataViewModel.heroes)
 
         LaunchedEffect(lazyListState.isScrollInProgress) {
            if (!lazyListState.isScrollInProgress) {
                 val snappedItem = layoutInfo.currentItem
-                if (snappedItem != null) {
-                    onChangeIndex(heroes[snappedItem.index].getColor())
+                if (snappedItem != null && heroes.value!=null) {
+                    onChangeIndex(heroes.value!![snappedItem.index].getColor())
                 }
             }
-            Log.e("debug0",index.toString())
         }
-
         LazyRow(
             contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(32.dp),
@@ -65,16 +56,11 @@ class CardsList {
                 .animateContentSize(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            items(heroes.size) { i->
-                if(heroes.isEmpty()){
-                    card()
+            if (heroes.value!=null){
+                items(heroes.value!!.size) { i ->
+                    card(heroes.value!![i],onNavigate)
                 }
-                else {
-                    card(heroes[i],onNavigate)
-                }
-
             }
         }
     }
-}
 
