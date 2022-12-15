@@ -7,7 +7,5 @@ import retrofit2.http.Query
 
 interface IMarvelAPI {
     @GET("/v1/public/characters")
-    suspend fun getHeroes(@Query("ts") ts: String?,
-                  @Query("apikey") apikey: String?,
-                  @Query("hash") hash: String?): ServerAnswer
+    suspend fun getHeroes(): ServerAnswer
 }

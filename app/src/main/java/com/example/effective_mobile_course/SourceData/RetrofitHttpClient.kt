@@ -1,5 +1,6 @@
 package com.example.effective_mobile_course
 
+import com.example.effective_mobile_course.SourceData.HttpHashingInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -22,6 +23,7 @@ class RetrofitHttpClient {
             httpLoggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             httpClient = OkHttpClient.Builder()
                 .addInterceptor(httpLoggingInterceptor!!)
+                .addInterceptor(HttpHashingInterceptor())
                 .build()
             retrofit = Retrofit.Builder()
                 .baseUrl(MarvelApiUrl)
@@ -31,16 +33,5 @@ class RetrofitHttpClient {
         }
 
         return retrofit!!
-    }
-}
-
-object Hashing {
-    @JvmStatic
-    fun md5(input: String): String {
-        val md = MessageDigest.getInstance("MD5")
-        return BigInteger(1, md.digest(input
-            .toByteArray()))
-            .toString(16)
-            .padStart(32, '0')
     }
 }

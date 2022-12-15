@@ -2,7 +2,7 @@ package com.example.effective_mobile_course.HeroesGetter
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.example.effective_mobile_course.Hashing
+import com.example.effective_mobile_course.utils.Hashing
 import com.example.effective_mobile_course.SourceData.IMarvelAPI
 import com.example.effective_mobile_course.ValueToHero
 import com.example.effective_mobile_course.models.Hero
@@ -16,20 +16,15 @@ class InternetHeroesGetter constructor(retrofit:Retrofit): IHeroesGetter {
     }
 
     val retrofit_:Retrofit
-
-    val PRIVATE_KEY_MARVEL="fabe39ab80049ea50c65e54717ff8d8441d35022"
-    val PUBLIC_KEY_MARVEL="07b94bf303de475b49b2c537705e2ef3"
-    val hash:String
     init{
         retrofit_=retrofit
-        hash = Hashing.md5("${1}${PRIVATE_KEY_MARVEL}${PUBLIC_KEY_MARVEL}")
+        if (marvelAPI == null){
+            marvelAPI = retrofit_.create(IMarvelAPI::class.java)
+        }
     }
     @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun getHeroes(): List<Hero>? {
-        if (marvelAPI == null)
-            marvelAPI = retrofit_.create(IMarvelAPI::class.java)
-        val response: ServerAnswer? = marvelAPI?.getHeroes("1",PUBLIC_KEY_MARVEL,hash)
-
+        val response: ServerAnswer? = marvelAPI?.getHeroes()
         val heroes= response?.data?.results?.map { ValueToHero(it) }
         return heroes
     }
