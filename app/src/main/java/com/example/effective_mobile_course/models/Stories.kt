@@ -1,4 +1,4 @@
-package com.example.effective_mobile_course.modules
+package com.example.effective_mobile_course.models
 
 data class Stories(
     val available: Int,

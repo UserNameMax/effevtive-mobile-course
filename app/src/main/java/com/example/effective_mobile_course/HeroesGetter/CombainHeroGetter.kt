@@ -1,10 +1,11 @@
-package com.example.effective_mobile_course
+package com.example.effective_mobile_course.HeroesGetter
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.example.effective_mobile_course.modules.Hero
+import com.example.effective_mobile_course.RetrofitHttpClient
+import com.example.effective_mobile_course.models.Hero
 
-class CombainHeroGetter:IHeroesGetter {
+class CombainHeroGetter: IHeroesGetter {
     @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun getHeroes(): List<Hero>? {
         val internetGetter = InternetHeroesGetter(RetrofitHttpClient().getRetrofit())

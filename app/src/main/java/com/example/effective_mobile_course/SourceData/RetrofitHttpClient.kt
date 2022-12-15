@@ -1,6 +1,5 @@
 package com.example.effective_mobile_course
 
-import com.example.effective_mobile_course.modules.Result
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

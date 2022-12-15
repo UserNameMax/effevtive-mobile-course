@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.effective_mobile_course.R
-import com.example.effective_mobile_course.modules.Hero
+import com.example.effective_mobile_course.models.Hero
 
 
 @Composable

@@ -1,4 +1,4 @@
-package com.example.effective_mobile_course.modules
+package com.example.effective_mobile_course.models
 
 import androidx.room.Dao
 import androidx.room.Delete

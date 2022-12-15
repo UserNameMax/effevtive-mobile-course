@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.request.ImageRequest
-import com.example.effective_mobile_course.modules.Hero
+import com.example.effective_mobile_course.models.Hero
 
 @Composable
 fun HeroScreen(hero: Hero,onBack:()->Unit) {

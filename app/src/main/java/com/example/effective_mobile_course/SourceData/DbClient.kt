@@ -1,11 +1,9 @@
-package com.example.effective_mobile_course
+package com.example.effective_mobile_course.SourceData
 
 import android.content.Context
-import androidx.room.Dao
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.example.effective_mobile_course.modules.AppDatabase
-import com.example.effective_mobile_course.modules.UserDao
+import com.example.effective_mobile_course.models.AppDatabase
+import com.example.effective_mobile_course.models.UserDao
 
 class dbClient {
     private companion object{
@@ -23,6 +21,6 @@ class dbClient {
         return dao!!
     }
     fun setApplicationContext(context: Context){
-        applicationContext=context
+        applicationContext =context
     }
 }

@@ -1,4 +1,4 @@
-package com.example.effective_mobile_course.modules
+package com.example.effective_mobile_course.models
 
 import androidx.compose.ui.graphics.Color
 import androidx.room.Entity

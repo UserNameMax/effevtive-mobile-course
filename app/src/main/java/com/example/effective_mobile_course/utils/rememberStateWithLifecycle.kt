@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 
 @Composable
-fun <T> rememberStateWithLifecycle(
+fun <T> RememberStateWithLifecycle(
     stateFlow: StateFlow<T>,
     lifecycle: Lifecycle = LocalLifecycleOwner.current.lifecycle,
     minActiveState: Lifecycle.State = Lifecycle.State.STARTED

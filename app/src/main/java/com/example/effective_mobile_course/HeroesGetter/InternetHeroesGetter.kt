@@ -1,20 +1,18 @@
-package com.example.effective_mobile_course
+package com.example.effective_mobile_course.HeroesGetter
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.runtime.LaunchedEffect
-import com.example.effective_mobile_course.modules.Hero
-import com.example.effective_mobile_course.modules.Result
-import com.example.effective_mobile_course.modules.ServerAnswer
-import com.example.effective_mobile_course.modules.UserDao
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import com.example.effective_mobile_course.Hashing
+import com.example.effective_mobile_course.SourceData.IMarvelAPI
+import com.example.effective_mobile_course.ValueToHero
+import com.example.effective_mobile_course.models.Hero
+import com.example.effective_mobile_course.models.ServerAnswer
 import retrofit2.Retrofit
 
-class InternetHeroesGetter constructor(retrofit:Retrofit):IHeroesGetter {
+class InternetHeroesGetter constructor(retrofit:Retrofit): IHeroesGetter {
 
     private companion object{
-        var marvelAPI:IMarvelAPI? = null
+        var marvelAPI: IMarvelAPI? = null
     }
 
     val retrofit_:Retrofit

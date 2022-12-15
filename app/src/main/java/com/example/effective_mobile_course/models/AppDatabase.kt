@@ -1,4 +1,4 @@
-package com.example.effective_mobile_course.modules
+package com.example.effective_mobile_course.models
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
