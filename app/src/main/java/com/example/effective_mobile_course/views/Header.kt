@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.sp
 import com.example.effective_mobile_course.R
 
 @Composable
-fun header(){
+fun Header(){
     Image(
         painter = painterResource(R.drawable.marvel),
         contentDescription = "Contact profile picture"

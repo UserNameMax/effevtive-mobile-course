@@ -1,21 +1,39 @@
 package com.example.effective_mobile_course.HeroesGetter
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.example.effective_mobile_course.RetrofitHttpClient
+import com.example.effective_mobile_course.SourceData.dbClient
 import com.example.effective_mobile_course.models.Hero
 
 class CombainHeroGetter: IHeroesGetter {
-    @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun getHeroes(): List<Hero>? {
         val internetGetter = InternetHeroesGetter(RetrofitHttpClient().getRetrofit())
         val dbGetter = DbHeroesGetter()
         var heroes:List<Hero>?
         try{
             heroes=internetGetter.getHeroes()
+            val db = dbClient().getDao()
+            val dbHeroes = dbGetter.getHeroes()
+            if (dbHeroes!=null){
+                for (hero in dbHeroes){
+                    if (heroes?.find { it == hero } == null){
+                        db.delete(hero)
+                    }
+                }
+                for (hero in heroes!!){
+                    if (dbHeroes.find { it == hero } == null){
+                        db.insert(hero)
+                    }
+                }
+            }
         }
         catch (e: Exception){
-            heroes = dbGetter.getHeroes()
+            try{
+                heroes = dbGetter.getHeroes()
+            }
+            catch (e: Exception){
+                return null
+            }
+
         }
         return heroes
     }

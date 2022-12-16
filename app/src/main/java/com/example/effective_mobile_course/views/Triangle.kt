@@ -10,7 +10,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun triangle(color: Color, modifier: Modifier = Modifier) {
+fun Triangle(color: Color, modifier: Modifier = Modifier) {
     val height = LocalConfiguration.current.screenHeightDp
     val width = LocalConfiguration.current.screenWidthDp
     val proportion = 0.5f

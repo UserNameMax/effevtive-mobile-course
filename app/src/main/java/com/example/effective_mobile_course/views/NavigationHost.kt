@@ -12,7 +12,6 @@ import com.example.effective_mobile_course.SourceData.dbClient
 import com.example.effective_mobile_course.models.Hero
 import com.example.effective_mobile_course.views.MainScreen.MainScreenViewModel
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NavigationHost(applicationContext:Context){
     val navController = rememberNavController()

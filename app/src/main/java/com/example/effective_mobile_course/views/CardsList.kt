@@ -20,7 +20,7 @@ import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
 
     @OptIn(ExperimentalSnapperApi::class)
     @Composable
-    fun getView(heroes:List<Hero>?, onChangeIndex: (Int)-> Unit, onNavigate: (Hero)->Unit){
+    fun CardsList(heroes:List<Hero>?, onChangeIndex: (Int)-> Unit, onNavigate: (Hero)->Unit){
         val lazyListState: LazyListState = rememberLazyListState()
         val layoutInfo: LazyListSnapperLayoutInfo = rememberLazyListSnapperLayoutInfo(lazyListState)
 

@@ -19,12 +19,17 @@ fun MainScreen(dataViewModel: MainScreenViewModel, onNavigate:(Hero)->Unit) {
     Surface(modifier = Modifier
         .fillMaxSize()
         .background(Color.Red)){
-        triangle(color = if(state.value.state == MainScreenUIState.states.Loaded) state.value.getCurentHero().getColor()
+        Triangle(color = when (state.value.state) {
+            MainScreenUIState.states.Load -> Color.Blue
+            MainScreenUIState.states.Loaded -> state.value.getCurentHero().getColor()
+            else -> Color.Black
+        })
+        Triangle(color = if(state.value.state == MainScreenUIState.states.Loaded) state.value.getCurentHero().getColor()
         else Color.Blue)
         Column {
-            header()
+            Header()
             if (state.value.state == MainScreenUIState.states.Loaded){
-                getView(state.value.heroes, {dataViewModel.onSwipe(it)}, onNavigate )
+                CardsList(state.value.heroes, {dataViewModel.onSwipe(it)}, onNavigate )
             }
         }
     }

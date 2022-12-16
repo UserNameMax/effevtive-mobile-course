@@ -13,14 +13,13 @@ class HttpHashingInterceptor:Interceptor {
 
     val PRIVATE_KEY_MARVEL="fabe39ab80049ea50c65e54717ff8d8441d35022"
     val PUBLIC_KEY_MARVEL="07b94bf303de475b49b2c537705e2ef3"
-    var hash:String=""
-
+    
     override fun intercept(chain: Interceptor.Chain): Response {
         val original: Request = chain.request()
         val originalHttpUrl: HttpUrl = original.url
 
-        val time = Random.nextUInt()% 100u
-        hash = Hashing.md5("${time}${PRIVATE_KEY_MARVEL}${PUBLIC_KEY_MARVEL}")
+        val time = Random.nextUInt()
+        val hash = Hashing.md5("${time}${PRIVATE_KEY_MARVEL}${PUBLIC_KEY_MARVEL}")
 
         val newUrl = originalHttpUrl.newBuilder()
             .addQueryParameter("ts", "$time")

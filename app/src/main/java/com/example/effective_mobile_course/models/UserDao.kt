@@ -13,6 +13,9 @@ interface UserDao {
     @Insert
     fun insertAll( heroes: List<Hero>)
 
+    @Insert
+    fun insert(hero:Hero)
+
     @Delete
     fun delete(hero: Hero)
 }
